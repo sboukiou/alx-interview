@@ -1,24 +1,28 @@
 #!/usr/bin/python3
 """
-0-pascal_triangle
+0-pascal-triangle
 """
 
 
+def factorial(n):
+    result = 1
+    for i in range(1, n + 1):
+        result *= i
+    return result
+
+
+def combination(n, r):
+    return (factorial(n)) / (factorial(r) * factorial(n - r))
+
+
 def pascal_triangle(n):
-    """
-    Returns a list of integers
-    representing the Pascal Triangle of n
-    returns empty list if n <= 0
-    """
-    k = []
+    # Pascal triangle of n
     if n <= 0:
-        return k
-    k = [[1]]
+        return []
+    triangle = [[1]]
     for i in range(1, n):
-        temp = [1]
-        for j in range(len(k[i - 1]) - 1):
-            curr = k[i - 1]
-            temp.append(k[i - 1][j] + k[i - 1][j + 1])
-        temp.append(1)
-        k.append(temp)
-    return k
+        line = []
+        for j in range(0, i + 1):
+            line.append(int(combination(i, j)))
+        triangle.append(line)
+    return triangle
