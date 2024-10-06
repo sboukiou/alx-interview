@@ -5,6 +5,9 @@
 
 
 def factorial(n):
+    """
+    Get the factorial of n
+    """
     result = 1
     for i in range(1, n + 1):
         result *= i
@@ -12,11 +15,16 @@ def factorial(n):
 
 
 def combination(n, r):
+    """
+    Get the combination of n/r
+    """
     return (factorial(n)) / (factorial(r) * factorial(n - r))
 
 
 def pascal_triangle(n):
-    # Pascal triangle of n
+    """
+    Get the triangle of n elements
+    """
     if n <= 0:
         return []
     triangle = [[1]]
