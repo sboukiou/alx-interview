@@ -1,26 +1,33 @@
 #!/usr/bin/python3
 """
-Solution to lockboxes problem
+This is a module that provides a function for determining if all
+boxes in a given list can be opened.
 """
 
 
 def canUnlockAll(boxes):
     """
-    Determines whether a series of locked boxes can be opened
-    based on keys that can be attained.
-    Solution to the lockboxes problem
-    """
-    if (type(boxes)) is not list:
-        return False
-    elif (len(boxes)) == 0:
-        return False
+    This function takes a list of lists and returns a boolean indicating
+        whether all boxes in the list can be opened. A key with the same
+        number as a box opens that box. You can assume all keys will be
+        positive integers. There can be keys that do not have boxes.
+        The first box boxes[0] is unlocked.
 
-    for k in range(1, len(boxes) - 1):
-        boxes_checked = False
-        for idx in range(len(boxes)):
-            boxes_checked = k in boxes[idx] and k != idx
-            if boxes_checked:
-                break
-        if boxes_checked is False:
-            return boxes_checked
-    return True
+    Parameters:
+    boxes (List[List[int]]): The list of lists representing the boxes
+        and their keys.
+
+    Returns:
+    bool: True if all boxes can be opened, else False.
+    """
+    n = len(boxes)
+    seen_boxes = set([0])
+    unseen_boxes = set(boxes[0]).difference(set([0]))
+    while len(unseen_boxes) > 0:
+        boxIdx = unseen_boxes.pop()
+        if not boxIdx or boxIdx >= n or boxIdx < 0:
+            continue
+        if boxIdx not in seen_boxes:
+            unseen_boxes = unseen_boxes.union(boxes[boxIdx])
+            seen_boxes.add(boxIdx)
+    return n == len(seen_boxes)
